@@ -1,0 +1,88 @@
+use_bpm 110
+sleep 1
+clap = "C:/Users/roberto_gongora/Desktop/F/clap.wav"
+Queen = "C:/Users/roberto_gongora/Desktop/F/Queen.wav"
+bites = "C:/Users/roberto_gongora/Desktop/F/bites.wav"
+Bites1 = "C:/Users/roberto_gongora/Desktop/F/Bites1.wav"
+Bites2 = "C:/Users/roberto_gongora/Desktop/F/Bites2.wav"
+Gun = "C:/Users/roberto_gongora/Desktop/F/gun.wav"
+WTF = "C:/Users/roberto_gongora/Desktop/F/WTF.wav"
+WTF2 = "C:/Users/roberto_gongora/Desktop/F/WTF2.wav"
+Ending = "C:/Users/roberto_gongora/Desktop/F/Ending.wav"
+F = 0
+M = 1
+B = 2
+J = 3
+D = 4
+R = 5
+T = 6
+
+
+Freddie = [Queen, bites, Bites1, Bites2, Gun, WTF, Ending]
+
+use_synth :fm
+define :cymbal do
+  16.times do
+    sample :drum_cymbal_closed
+    sleep 1
+  end
+end
+
+define :bass_intro_only do
+  2.times do
+    play :e2, amp: 3
+    sleep 1
+    play :e2, amp: 3
+    sleep 1
+    play :e2, amp: 3
+    sleep 1
+    play :r
+    sleep 5
+  end
+end
+
+define :bass_intro_full do
+  2.times do
+    play :r
+    sleep 4
+    play :e2, amp: 3
+    sleep 0.5
+    play :e2, amp: 3
+    sleep 0.5
+    play :g2, amp: 3
+    sleep 0.5
+    play :e2, amp: 3
+    sleep 0.25
+    play :a2
+    sleep 0.25
+    play :r
+    sleep 1.5
+    play :a2, amp: 3
+    sleep 0.25
+    play :g2, amp: 3
+    sleep 0.25
+  end
+end
+
+define :temp do
+  sleep 3
+  sample clap, amp: 2
+  sleep 3.55
+  sample clap, amp: 2
+  sleep 0.525
+  sample clap, amp: 2
+end
+
+live_loop :track0 do
+  bass_intro_only
+end
+
+live_loop :track1 do
+  sync :track0
+  bass_intro_full
+end
+
+live_loop :track2 do
+  sync :track0
+  temp
+end
