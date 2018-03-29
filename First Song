@@ -1,0 +1,143 @@
+use_bpm 110
+clap = "C:/Users/roberto_gongora/Desktop/Sonic Pi/F/clap.wav"
+Queen = "C:/Users/roberto_gongora/Desktop/Sonic Pi/F/Queen.wav"
+Another = "C:/Users/roberto_gongora/Desktop/Sonic Pi/F/another.wav"
+bites = "C:/Users/roberto_gongora/Desktop/Sonic Pi/F/bites.wav"
+Bites1 = "C:/Users/roberto_gongora/Desktop/Sonic Pi/F/Bites1.wav"
+Bites2 = "C:/Users/roberto_gongora/Desktop/Sonic Pi/F/Bites2.wav"
+Gun = "C:/Users/roberto_gongora/Desktop/Sonic Pi/F/gun.wav"
+WTF = "C:/Users/roberto_gongora/Desktop/Sonic Pi/F/WTF.wav"
+WTF2 = "C:/Users/roberto_gongora/Desktop/Sonic Pi/F/WTF2.wav"
+Ending = "C:/Users/roberto_gongora/Desktop/Sonic Pi/F/Ending.wav"
+f = 0
+m = 0
+
+freddie = [Queen, bites, Bites1, Another, Bites2, Gun]
+time = [16.2, 6.6, 8.6, 3.1, 1.2, 10.1]
+e = [37.3, 44.4, 23.3]
+use_synth :fm
+
+define :cymbal do
+  16.times do
+    sample :drum_cymbal_closed
+    sleep 1
+  end
+end
+
+define :memo do
+  16.times do
+    sample :drum_heavy_kick, amp: 3
+    sleep 1
+  end
+end
+
+define :drum do
+  16.times do
+    sample :drum_snare_soft
+    sleep 2
+  end
+end
+
+define :bass_intro_only do
+  2.times do
+    play :e2, amp: 3
+    sleep 1
+    play :e2, amp: 3
+    sleep 1
+    play :e2, amp: 3
+    sleep 1
+    play :r
+    sleep 5
+  end
+end
+
+define :bass_intro_full do
+  2.times do
+    play :r
+    sleep 4
+    play :e2, amp: 3
+    sleep 0.5
+    play :e2, amp: 3
+    sleep 0.5
+    play :g2, amp: 3
+    sleep 0.5
+    play :e2, amp: 3
+    sleep 0.25
+    play :a2
+    sleep 0.25
+    play :r
+    sleep 1.5
+    play :a2, amp: 3
+    sleep 0.25
+    play :g2, amp: 3
+    sleep 0.25
+  end
+end
+
+define :temp do
+  i = rrand_i(2,3)
+  sleep 3
+  sample clap, amp: i
+  sleep 3.55
+  sample clap, amp: i
+  sleep 0.525
+  sample clap, amp: i
+  sleep 4
+  sample clap, amp: i
+  sleep 3.55
+  sample clap, amp: i
+  sleep 0.525
+  sample clap, amp: i
+end
+
+define :mercury do
+  sleep 10
+  sample freddie[f]
+  sleep time[f]
+  f = f+1
+end
+
+sample WTF, amp: 2
+sleep 37.3
+
+1.times do
+  #sample WTF2, amp: 5
+  #sleep 23.3
+  #sample Ending, amp: 10
+  #sleep 44.4
+end
+
+live_loop :track0 do
+  bass_intro_only
+end
+
+live_loop :track1 do
+  sync :track0
+  bass_intro_full
+end
+
+live_loop :track2 do
+  sync :track0
+  temp
+end
+
+live_loop :track3 do
+  sync :track0
+  cymbal
+end
+
+live_loop :track4 do
+  sync :track0
+  memo
+end
+
+live_loop :track5 do
+  sync :track0
+  drum
+end
+
+6.times do
+  sync :track0
+  mercury
+  sleep 2.5
+end
