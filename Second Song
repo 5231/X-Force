@@ -1,0 +1,28 @@
+use_bpm 157
+Tron = "C:/Users/roberto_gongora/Desktop/Sonic Pi/K/Tron.wav"
+Stronger = "C:/Users/roberto_gongora/Desktop/Sonic Pi/K/strong.wav"
+Whoa = "C:/Users/roberto_gongora/Desktop/Sonic Pi/K/whoa.wav"
+Alright = "C:/Users/roberto_gongora/Desktop/Sonic Pi/K/alright.wav"
+West = "C:/Users/roberto_gongora/Desktop/Sonic Pi/K/west.wav"
+
+define :banger do
+  sample Tron, amp: 3, beat_stretch: 16.3
+  b = 32.3
+  sleep 16.5
+  5.times do
+    sample Stronger, beat_stretch: b, amp: 3
+    sleep b
+    b = b-2
+  end
+  sleep 0.10
+  sample Whoa, amp: 3
+  sleep 48.3
+  sample Alright, amp: 4
+  sleep 48.3
+  sample West, amp: 4
+end
+
+sleep 1
+1.times do
+  banger
+end
